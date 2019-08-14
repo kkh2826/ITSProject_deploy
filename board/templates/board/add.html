@@ -1,0 +1,33 @@
+{% extends 'board/layout.html' %}
+
+{% block title %}문의사항 작성 페이지{% endblock %}
+
+{% block script %}
+    {% load static %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="content-wrapper">
+        <div class="container">
+            <h3 class="card-title">문의글 생성 및 수정(작성자 : {{ user }}) </h3>
+            <form action="." method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <p>입력값에 오류가 있습니다.</p>
+                {% endif %}
+                {% for form in form %}
+                <fieldset>
+                    <div class="form-group">
+                        {{ form }}
+                    </div>
+                </fieldset>
+                {% endfor %}
+                <div class="text-right"><input class="btn btn-outline-primary" type="submit" value="Submit"/></div>
+            </form>
+        </div>
+    </div> 
+    
+{% endblock %}

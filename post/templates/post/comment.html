@@ -1,0 +1,107 @@
+{% extends 'post/layout.html' %}
+
+{% block title %}댓글 목록{% endblock %}
+
+{% block script %}
+	{% load static %}
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'bootstrap2/js2/comment.js' %}"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+
+    {{ form.media }}
+{% endblock %}
+
+{% block style %} 
+	{{ block.super }}
+
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap2/css2/comment.css' %}" />
+
+{% endblock %}
+
+
+{% block content %}
+	<div class="container-fluid h-100" style="background: #7F7FD5;
+		background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	 	background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);">
+		<div class="row justify-content-center h-100">
+
+			<div class="col-md-8 col-xl-6 chat">
+				<div class="card">
+					<div class="card-header msg_head">
+						<div class="d-flex bd-highlight">
+							<div class="img_cont">
+	                            {% if object.user.profile.image %}
+	                                <a href="{% url 'post:other_list' object.user.username %}"><img class="rounded-circle user_img" src="{{ object.user.profile.image.url }}"></a>
+	                            {% else %}
+	                               <a href="{% url 'post:other_list' object.user.username %}"><img class="rounded-circle user_img" src="{% static 'bootstrap2/images/default.png' %}"></a>
+	                            {% endif %}
+								<span class="online_icon"></span>
+							</div>
+							<div class="user_info">
+								<span>{{ object.user.username }}</span>
+								<p>댓글 {{ object.comment_set.all.count }}개</p>
+							</div>
+
+						</div>
+						<span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+						<div class="action_menu">
+							<ul>
+	                            <li onclick="location.href='{% url "post:other_list" object.user.username %}' "><i class="fas fa-user-circle"></i> 작성자 게시물 보기</li>
+								<li onclick="location.href='{% url "post:list" %}' "><i class="fas fa-users"></i> 게시물 목록</li>
+								<li onclick="location.href='{% url "post:comment_new" post.id %}' "><i class="fas fa-plus"></i> 댓글달기</li>
+								<li onclick="location.href='{% url "post:list" %}' "><i class="fas fa-ban"></i> 닫기</li>
+							</ul>
+						</div>
+					</div>
+					<div class="card-body msg_card_body">
+	                    {% for comment in object.comment_set.all %}
+						<div class="d-flex justify-content-start mb-4">
+							<div class="img_cont_msg">
+								{% if comment.user.profile.image %}
+									<img src="{{ comment.user.profile.image.url }}" class="rounded-circle user_img_msg">
+								{% else %}
+									<img src="{% static 'bootstrap2/images/default.png' %}" class="rounded-circle user_img_msg">
+								{% endif %}
+							</div>
+							<div class="msg_cotainer">
+	                            {{ comment.message }} 
+	                            <span class="msg_time">
+	                                {{ comment.user }}, {{ comment.created_at|date:'y-m-d' }}
+								</span	>
+							</div>
+	                    </div>
+	                    {% endfor %}                                    
+					
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

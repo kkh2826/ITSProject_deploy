@@ -1,0 +1,104 @@
+{% load static %}
+<nav class="sidebar sidebar-offcanvas" id="sidebar"  style="background: #f7f0e9; margin-left: -14px;">
+    <ul class="nav" style="position : fixed;">
+      {% if user.is_authenticated %}
+      <li class="nav-item nav-profile">
+        <a href="{% url 'profile' %}" class="nav-link">
+          <div class="nav-profile-image">
+            {% comment %} <img src="{% static 'bootstrap2/images/faces/default.jpg'%}" alt="profile"> {% endcomment %}
+            {% if user.profile.image %}
+              <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" >
+            {% else %}
+              <img class="rounded-circle account-img" src="{% static 'bootstrap2/images/default.png' %}">
+            {% endif %}
+            <span class="login-status online"></span> <!--change to offline or busy as needed-->              
+          </div>
+          <div class="nav-profile-text d-flex flex-column">
+            <span class="font-weight-bold mb-2">{{ user.username }}</span>
+            <span class="text-secondary text-small">{{ user.email }}</span>
+          </div>
+          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+        </a>
+      </li>
+      {% else %}
+      <li class="nav-item nav-profile">
+        <a href="{% url 'profile' %}" class="nav-link">
+          <div class="nav-profile-image">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+            <span class="login-status online"></span> <!--change to offline or busy as needed-->              
+          </div>
+          <div class="nav-profile-text d-flex flex-column">
+            <span class="font-weight-bold mb-2">회원 아이디</span>
+            <span class="text-secondary text-small">회원 이메일</span>
+          </div>
+          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+        </a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'post:list' %}">
+          <span class="menu-title">MAIN</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'board:index' %}">
+          <span class="menu-title">Dashboard</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+          <span class="menu-title">LANGUAGE</span>
+          <i class="menu-arrow"></i>
+          <i class="mdi mdi-text-shadow"></i>
+        </a>
+        <div class="collapse" id="ui-basic">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{% url 'post:c_list' %}">C language</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'post:c_plus_list' %}">C++</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'post:python_list' %}">PYTHON</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'post:java_list' %}">JAVA</a></li>
+          </ul>
+        </div>
+      </li>
+     
+      <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+              <span class="menu-title">ELECTRONICS</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-laptop-mac"></i>
+            </a>
+            <div class="collapse" id="general-pages">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'post:hp_list' %}">Hand Phone</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'post:nb_list' %}">NoteBook</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'post:kb_list' %}">KeyBoard</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'post:ep_list' %}">EarPhone</a></li>
+              </ul>
+              </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#compile" aria-expanded="false" aria-controls="compile">
+              <span class="menu-title">Online Compile</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-lan-connect"></i>
+            </a>
+            <div class="collapse" id="compile">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="https://www.onlinegdb.com/online_c_compiler" target="_blank">C Compiler</a></li>
+                <li class="nav-item"> <a class="nav-link" href="https://www.onlinegdb.com/online_c++_compiler" target="_blank">C++ Compiler</a></li>
+                <li class="nav-item"> <a class="nav-link" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">PYTHON Compiler</a></li>
+                <li class="nav-item"> <a class="nav-link" href="https://www.onlinegdb.com/online_java_compiler" target="_blank">JAVA Compiler</a></li>
+              </ul>
+            </div>
+          </li>
+      
+      <li class="nav-item sidebar-actions">
+        <span class="nav-link">
+          <button class="btn btn-block btn-lg btn-gradient-primary mt-4" onclick="location.href='{% url 'post:add_notice' %}'" style="background: #9bd7d1;">+ 게시물 올리기</button>
+        </span>
+      </li>
+    </ul>
+</nav>

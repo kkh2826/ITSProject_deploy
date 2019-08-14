@@ -1,0 +1,27 @@
+{% extends 'board/layout.html' %}
+
+{% block title %}게시물 수정하기{% endblock %}
+
+{% load static %}
+{% block script %}
+    {{ block.super }}    
+    {{ forms.media }}
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <div class="container">    
+        <form action="{% url 'board:edit' %}" method="POST">
+            {% csrf_token %}
+            {% for form in forms %}
+                <div class="form-group">
+                    {{ form }}
+                </div>
+            {% endfor %}
+            <div class="text-right">
+                <button type="submit" class="btn btn-outline-primary">수정</button>
+            </div>
+        </form>
+        </div>
+    </div> 
+{% endblock %}

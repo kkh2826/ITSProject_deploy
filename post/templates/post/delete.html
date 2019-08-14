@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>{% block title %}삭제확인페이지{% endblock %}</title>
+   {% load static %}
+   {% block style %}
+      <link rel="icon" type="image/png" href="{% static 'boot/images/icons/favicon.ico' %}"/>
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/vendor/bootstrap/css/bootstrap.min.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/fonts/iconic/css/material-design-iconic-font.min.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/vendor/animate/animate.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/vendor/css-hamburgers/hamburgers.min.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/vendor/animsition/css/animsition.min.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/vendor/select2/select2.min.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/vendor/daterangepicker/daterangepicker.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/css/util.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'boot/css/main.css' %}" />
+   {% endblock %}
+   {% block script %}
+      <script src="{% static 'boot/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+      <script src="{% static 'boot/vendor/animsition/js/animsition.min.js' %}"></script>
+      <script src="{% static 'boot/vendor/bootstrap/js/popper.js' %}"></script>
+      <script src="{% static 'boot/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'boot/vendor/select2/select2.min.js' %}"></script>
+      <script src="{% static 'boot/vendor/daterangepicker/moment.min.js' %}"></script>
+      <script src="{% static 'boot/vendor/daterangepicker/daterangepicker.js' %}"></script>
+      <script src="{% static 'boot/vendor/countdowntime/countdowntime.js' %}"></script>
+      <script src="{% static 'boot/js/main.js' %}"></script>
+
+   {% endblock %}
+</head>
+
+<body>    
+   {% block content %}
+   <div class="container-contact100" style="background:#f9ebc4">
+      <div class="wrap-contact100">
+         <form class="contact100-form validate-form" action="" method="post">
+               {% csrf_token %}
+            <span class="contact100-form-title">
+               Do you want to delete the posts("{{ object }}")?
+            </span>
+            <label class="label-input100 text-center" style="color:red">주의! 삭제를 하시면 다시 복구할 수 없습니다.</label>
+            <div class="container-contact100-form-btn" >
+               <button class="contact100-form-btn" type="submit" value="Confirm">
+                  <span>
+                     Yes, I want to delete.
+                     <i class="zmdi zmdi-arrow-right m-l-8"></i>
+                  </span>
+               </button>
+            </div>
+         </form>
+      </div>
+   </div> 
+   {% endblock %}
+   
+
+</body>

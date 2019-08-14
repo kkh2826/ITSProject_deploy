@@ -1,0 +1,69 @@
+{% extends 'board/layout.html' %}
+
+{% load hitcount_tags %}
+
+{% block title %}문의사항{% endblock %}
+
+{% block script %}
+    {% load static %}
+    {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="container">
+    <table class="table table-hover">
+       <thead>
+            <tr class="row">
+                <th class="col-md-1">번호</th>
+                <th class="col-md-4">제목</th>
+                <th class="col-md-2">작성자</th>
+                <th class="col-md-2">생성일</th>
+                <th class="col-md-1">조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+            {% get_hit_count for object as total_hits %}
+            <tr class="row" onclick="location.href='{% url 'board:view' object.id %}'">
+                <td class="col-md-1">{{ object.id }}</td>
+                <td class="col-md-4">{{ object.title }}</td>
+                <td class="col-md-2">{{ object.user.username }}</td>
+                <td class="col-md-2">{{ object.create_date|date:"Y-m-d" }}</td>
+                <td class="col-md-1">{{ total_hits }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </table>
+    <script>
+        function search(type) {
+            search = document.getElementById("search2").value
+            location.href = "{% url 'board:index' %}?search2="+search+"&type="+type
+        }
+    </script>
+    <div class="text-center">
+        <form action="{% url 'board:index' %}" method="GET" class="form-inline">
+            <div class="input-group md-1">
+                <input type="text" class="form-control" id="search2" name="search2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">검색</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="javascript:search('title');">제목</a>
+                        <a class="dropdown-item" href="javascript:search('content');">내용</a>
+                        <a class="dropdown-item" href="javascript:search('user');">작성자</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    </div>
+    {% if user.is_authenticated %}
+        <div class="text-right">
+            <button tpye="button" class="btn btn-outline-primary" onclick="location.href='{% url 'board:add' %}'">글쓰기</button>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

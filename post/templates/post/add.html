@@ -1,0 +1,32 @@
+{% extends 'post/layout2.html' %}
+
+{% block title %}게시물 작성 페이지{% endblock %}
+
+{% block script %}
+    {% load static %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <div class="row justify-content-md-center">
+        <form action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.errors %}
+                <p>입력값에 오류가 있습니다.</p>
+            {% endif %}
+            {% for form in form %}
+                <div class="form-group">
+                    {{ form }}
+                </div>
+            {% endfor %}
+            <div class="text-center"><input class="btn btn-outline-primary" type="submit" value="등록하기"/></div>
+        </form>
+        </div>
+    </div>
+
+
+{% endblock %}

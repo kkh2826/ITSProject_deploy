@@ -1,0 +1,36 @@
+{% extends 'board/layout.html' %}
+
+{% block title %}문의사항 상세보기{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <div class="container">
+            <header>
+                <h2>제목 : {{ object.title }}</h2>
+                <div class="text-right">
+                <p class="font-weight-light"><small>작성자 : {{ object.user }}<br>
+                {{ object.create_date|date:'최초 작성일 : Y년 m월 d일 h시 i분 s초' }}<br>
+                {{ object.update_date|date:'마지막 수정일 : Y년 m월 d일 h시 i분 s초' }}</small></p>
+                </div>
+            </header>
+            <section>
+            <p>
+                {% autoescape off %}{{ object.content }}{% endautoescape %}
+            </p>
+            </section>
+            <section>
+                <div class="text-right">
+                    {% if user.is_authenticated %}
+                        {% if user.username == object.user.username %}
+                            <button class="btn btn-outline-primary" onclick="location.href='{% url "board:edit" object.id %}'">수정</button>
+                            <button class="btn btn-outline-danger" onclick="location.href='{% url "board:delete" object.id %}'">삭제</button>
+                            <button class="btn btn-outline-info" onclick="location.href='{% url "board:index" %}'">목록</button>                        
+                        {% else %}
+                            <button class="btn btn-outline-info" onclick="location.href='{% url "board:index" %}'">목록</button>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

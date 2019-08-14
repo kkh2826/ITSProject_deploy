@@ -1,0 +1,69 @@
+{% extends 'post/layout.html' %}
+
+{% block title %}모든 게시물{% endblock %}
+
+{% block style %}
+	{% load static %}
+    {{block.super}}
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rokkitt"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="{% static 'bootstrap2/css2/list.css' %}"/>
+{% endblock %}
+
+{% block script %}
+    {{block.super}}
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+{% for post in object_list %}
+	<section class="hero">
+    	<div class="container">
+        	<div class="row">	
+				<div class="col-lg-6 offset-lg-3">
+					<div class="cardbox shadow-lg bg-white">
+			 			<div class="cardbox-heading">
+			  				<div class="media m-0">
+			   					<div class="d-flex mr-3">
+			   					{% if post.user.profile.image %}
+										<a href="{% url 'post:other_list' post.user.username %}"><img class="img-fluid rounded-circle" src="{{ post.user.profile.image.url }}"></a>
+			   					{% else %}
+			   						<a href="{% url 'post:other_list' post.user.username %}"><img class="img-fluid rounded-circle" src="{% static 'bootstrap2/images/default.png' %}"></a>
+			   					{% endif %}
+			   					</div>
+			   					<div class="media-body">
+			    					<p class="m-0">{{post.user.username}}</p>
+									<small><span><i class="icon ion-md-pin"></i>{{ post.create_date|date:"Y-m-d D P " }}</span></small>
+			   					</div>
+			  				</div>
+			 			</div>
+			 			<div class="cardbox-item">
+			  				{{ post.content|safe }}
+			 			<div class="cardbox-base">
+			  				<ul class="float-right">
+								{% if user.username == post.user.username %}
+									<button class="btn btn-outline-secondary btn-sm" type="submit" onclick="location.href='{% url "post:comment" post.id %}'">댓글</button>
+
+									<button class="btn btn-outline-danger btn-sm" type="submit" onclick="location.href='{% url "post:post_delete" post.id %}'">삭제</button>
+								{% else %}
+			   						<button class="btn btn-outline-secondary btn-sm" type="submit" onclick="location.href='{% url "post:comment" post.id %}'">댓글</button>
+								{% endif %}
+			  				</ul>
+			  				<ul>
+			   					<li><a><i class="fa fa-thumbs-up"></i></a></li>
+								{% load tagging_tags %}
+								{% tags_for_object post as tags %}
+								{% for tag in tags %}
+			   						<li><a href="{% url 'post:tagged_object_list' tag.name %}"><span>{{ tag.name }}</span></a></li>
+								{% endfor %}
+							  </ul>
+							  <hr>
+			 			</div>
+					</div>
+           		</div>	
+          	</div>
+        </div>
+    </section>
+{% endfor %}
+{% endblock %}
