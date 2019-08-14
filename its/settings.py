@@ -32,8 +32,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '431778106875-a9akpnr6pat71pcueo4k26b3miu617ig.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '1nyZCc9944gXjbyCqInbnzy0'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '565421375290-9psoun6340j9q32l0smp4i9m7lootk2v.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '1dpBkurg_1LX0dCxj6ZWItO5'
 
 # Application definition
 
